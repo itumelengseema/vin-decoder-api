@@ -1,19 +1,20 @@
-﻿using System.Linq;
-using VinDecoder.Api.Models;
+﻿using VinDecoder.Api.Models;
 
 namespace VinDecoder.Api.Services
 {
     public class VinDecoderService
     {
         private readonly VinCheckDigitService _vinCheckDigitService;
-
-        public VinDecoderService(VinCheckDigitService vinCheckDigitService)
+        private readonly VinCountryService _vinCountryService;
+        public VinDecoderService(VinCheckDigitService vinCheckDigitService, VinCountryService vinCountryService)
         {
             _vinCheckDigitService = vinCheckDigitService;
+            _vinCountryService = vinCountryService;
         }
 
         public VinDecodeResult Decode(string? vin)
         {
+            
 
             if (string.IsNullOrWhiteSpace(vin))
             {
@@ -42,7 +43,7 @@ namespace VinDecoder.Api.Services
             {
                 throw new ArgumentException("VIN check digit is invalid.");
             }
-
+            string country = _vinCountryService.GetCountry(vin);
             string wmi = vin.Substring(0, 3);
             string vds = vin.Substring(3, 6);
             string vis = vin.Substring(9, 8);
@@ -52,7 +53,8 @@ namespace VinDecoder.Api.Services
                 Vin = vin,
                 Vds = vds,
                 Wmi = wmi,
-                Vis = vis
+                Vis = vis,
+                Country = country,
             };
 
             return result;

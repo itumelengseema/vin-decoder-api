@@ -2,9 +2,12 @@
 {
     public class VinDecodeResult
     {
+   
+
         public required string Vin { get; set; } 
         public required string Wmi { get; set; } 
         public required string Vds { get; set; }
         public required string Vis { get; set; }
+        public required string Country { get; set; }
     }
 }

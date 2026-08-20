@@ -10,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<VinDecoderService>();
 builder.Services.AddScoped<VinCheckDigitService>();
+builder.Services.AddScoped<VinCountryService>();
 
 var app = builder.Build();
 
