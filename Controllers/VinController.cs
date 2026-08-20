@@ -16,12 +16,19 @@ namespace VinDecoder.Api.Controllers
         }
 
         [HttpGet("{vin}")]
-        public VinDecodeResult Decode(string vin)
+        public ActionResult<VinDecodeResult> Decode(string vin)
         {
-            VinDecodeResult vinResult = _vinDecoderService.Decode(vin);
+            try
+            {
+                VinDecodeResult vinResult = _vinDecoderService.Decode(vin);
 
 
-            return vinResult;
+                return vinResult;
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest($"Error: {ex.Message}");
+            }
         }
 
     }

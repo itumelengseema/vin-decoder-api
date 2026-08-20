@@ -5,6 +5,12 @@ namespace VinDecoder.Api.Services
 {
     public class VinDecoderService
     {
+        private readonly VinCheckDigitService _vinCheckDigitService;
+
+        public VinDecoderService(VinCheckDigitService vinCheckDigitService)
+        {
+            _vinCheckDigitService = vinCheckDigitService;
+        }
 
         public VinDecodeResult Decode(string? vin)
         {
@@ -30,6 +36,11 @@ namespace VinDecoder.Api.Services
             if (vin.Any(c => !char.IsLetterOrDigit(c)))
             {
                 throw new ArgumentException("VIN can only contain letters and numbers.");
+            }
+
+            if (!_vinCheckDigitService.IsValid(vin))
+            {
+                throw new ArgumentException("VIN check digit is invalid.");
             }
 
             string wmi = vin.Substring(0, 3);
