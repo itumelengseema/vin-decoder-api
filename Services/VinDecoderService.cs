@@ -1,15 +1,40 @@
-﻿using VinDecoder.Api.Models;
+﻿using System.Linq;
+using VinDecoder.Api.Models;
 
 namespace VinDecoder.Api.Services
 {
     public class VinDecoderService
     {
-        
-       public VinDecodeResult Decode(string vin)
+
+        public VinDecodeResult Decode(string? vin)
         {
-            string wmi = vin.Substring(0,3);
-            string vds = vin.Substring(3,6);
-            string vis = vin.Substring(9,8);
+
+            if (string.IsNullOrWhiteSpace(vin))
+            {
+                throw new ArgumentNullException("VIN cannot be empty.");
+
+            }
+            if (vin.Length != 17)
+            {
+                throw new ArgumentException($"{vin} is not a valid Vin number.VIN must contain exactly 17 characters.");
+            }
+
+            vin = vin.ToUpper();
+
+
+            if (vin.Contains("O") || vin.Contains("I") || vin.Contains("Q"))
+            {
+                throw new ArgumentException("VIN cannot contain I, O or Q.");
+            }
+
+            if (vin.Any(c => !char.IsLetterOrDigit(c)))
+            {
+                throw new ArgumentException("VIN can only contain letters and numbers.");
+            }
+
+            string wmi = vin.Substring(0, 3);
+            string vds = vin.Substring(3, 6);
+            string vis = vin.Substring(9, 8);
 
             VinDecodeResult result = new VinDecodeResult
             {
