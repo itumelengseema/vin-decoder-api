@@ -75,5 +75,12 @@
                 return false;
             }
         }
+
+        public bool RequiresCheckDigitValidation(string vin)
+        {
+            char firstCharacter = vin[0];
+            
+            return firstCharacter is '1' or '2' or '3' or '4' or '5';
+        }
     }
 }

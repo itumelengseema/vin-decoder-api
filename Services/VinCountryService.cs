@@ -19,7 +19,17 @@
             {
                 return "South Africa";
             }
-
+            
+            // India WMI range
+            if (countryCode == "MA" ||
+                countryCode == "MB" ||
+                countryCode == "MC" ||
+                countryCode == "MD" ||
+                countryCode == "ME")
+            {
+                return "India";
+            }
+            
             switch (firstCharacter)
             {
                 case '1':

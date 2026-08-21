@@ -7,22 +7,24 @@ namespace VinDecoder.Api.Services
         private readonly VinCheckDigitService _vinCheckDigitService;
         private readonly VinCountryService _vinCountryService;
         private readonly VinManufacturerService _manufacturerService;
-        public VinDecoderService(VinCheckDigitService vinCheckDigitService, VinCountryService vinCountryService, VinManufacturerService manufacturerService)
+        private readonly VinModelYearService _vinModelYearService;
+
+        public VinDecoderService(VinCheckDigitService vinCheckDigitService, VinCountryService vinCountryService,
+            VinManufacturerService manufacturerService, VinModelYearService vinModelYearService)
         {
             _vinCheckDigitService = vinCheckDigitService;
             _vinCountryService = vinCountryService;
             _manufacturerService = manufacturerService;
+            _vinModelYearService = vinModelYearService;
         }
 
         public VinDecodeResult Decode(string? vin)
         {
-            
-
             if (string.IsNullOrWhiteSpace(vin))
             {
                 throw new ArgumentNullException(nameof(vin));
-
             }
+
             if (vin.Length != 17)
             {
                 throw new ArgumentException($"{vin} is not a valid Vin number.VIN must contain exactly 17 characters.");
@@ -41,18 +43,21 @@ namespace VinDecoder.Api.Services
                 throw new ArgumentException("VIN can only contain letters and numbers.");
             }
 
-            if (!_vinCheckDigitService.IsValid(vin))
+            if (_vinCheckDigitService.RequiresCheckDigitValidation(vin) && !_vinCheckDigitService.IsValid(vin))
             {
                 throw new ArgumentException("VIN check digit is invalid.");
             }
+
             string country = _vinCountryService.GetCountry(vin);
 
             string manufacture = _manufacturerService.GetManufacturer(vin);
-                
+
+            int manufactureYear = _vinModelYearService.GetYearModel(vin);
+
             string wmi = vin.Substring(0, 3);
             string vds = vin.Substring(3, 6);
             string vis = vin.Substring(9, 8);
-            
+
             VinDecodeResult result = new VinDecodeResult
             {
                 Vin = vin,
@@ -60,7 +65,8 @@ namespace VinDecoder.Api.Services
                 Wmi = wmi,
                 Vis = vis,
                 Country = country,
-                Manufacture = manufacture
+                Manufacturer = manufacture,
+                YearModel = manufactureYear,
             };
 
             return result;

@@ -9,6 +9,7 @@
         public required string Vds { get; set; }
         public required string Vis { get; set; }
         public required string Country { get; set; }
-        public required string Manufacture { get; set; }
+        public required string Manufacturer { get; set; }
+        public required int YearModel { get; set; }
     }
 }

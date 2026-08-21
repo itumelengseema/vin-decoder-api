@@ -12,6 +12,7 @@ builder.Services.AddScoped<VinDecoderService>();
 builder.Services.AddScoped<VinCheckDigitService>();
 builder.Services.AddScoped<VinCountryService>();
 builder.Services.AddScoped<VinManufacturerService>();
+builder.Services.AddScoped<VinModelYearService>();
 
 var app = builder.Build();
 

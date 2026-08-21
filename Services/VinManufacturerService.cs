@@ -32,7 +32,8 @@
 			{ "WP0", "Porsche" },
 			{ "VF1", "Renault" },
 			{ "VF3", "Peugeot" },
-			{ "ZFA", "Fiat" }
+			{ "ZFA", "Fiat" },
+			{ "MAL", "Hyundai" },
 		};
 
 		public string GetManufacturer(string vin)
