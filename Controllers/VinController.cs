@@ -15,7 +15,14 @@ namespace VinDecoder.Api.Controllers
             _vinDecoderService = vinDecoderService;
         }
 
+        /// <summary>
+        /// Decodes and validates a Vehicle Identification Number (VIN).
+        /// </summary>
+        /// <param name="vin">A 17-character Vehicle Identification Number.</param>
+        /// <returns>Decoded VIN information including WMI, VDS, VIS, country, manufacturer and model year.</returns>
         [HttpGet("{vin}")]
+        [ProducesResponseType(typeof(VinDecodeResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]  
         public ActionResult<VinDecodeResult> Decode(string vin)
         {
             try
@@ -27,7 +34,13 @@ namespace VinDecoder.Api.Controllers
             }
             catch (ArgumentException ex)
             {
-                return BadRequest($"Error: {ex.Message}");
+                ErrorResponse errorResponse = new ErrorResponse()
+                {
+                    Status = 400,
+                    Error = "Invalid Vin",
+                    Message = ex.Message
+                };
+                return BadRequest(errorResponse);
             }
         }
 
