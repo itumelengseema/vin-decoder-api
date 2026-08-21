@@ -6,10 +6,12 @@ namespace VinDecoder.Api.Services
     {
         private readonly VinCheckDigitService _vinCheckDigitService;
         private readonly VinCountryService _vinCountryService;
-        public VinDecoderService(VinCheckDigitService vinCheckDigitService, VinCountryService vinCountryService)
+        private readonly VinManufacturerService _manufacturerService;
+        public VinDecoderService(VinCheckDigitService vinCheckDigitService, VinCountryService vinCountryService, VinManufacturerService manufacturerService)
         {
             _vinCheckDigitService = vinCheckDigitService;
             _vinCountryService = vinCountryService;
+            _manufacturerService = manufacturerService;
         }
 
         public VinDecodeResult Decode(string? vin)
@@ -18,7 +20,7 @@ namespace VinDecoder.Api.Services
 
             if (string.IsNullOrWhiteSpace(vin))
             {
-                throw new ArgumentNullException("VIN cannot be empty.");
+                throw new ArgumentNullException(nameof(vin));
 
             }
             if (vin.Length != 17)
@@ -44,10 +46,13 @@ namespace VinDecoder.Api.Services
                 throw new ArgumentException("VIN check digit is invalid.");
             }
             string country = _vinCountryService.GetCountry(vin);
+
+            string manufacture = _manufacturerService.GetManufacturer(vin);
+                
             string wmi = vin.Substring(0, 3);
             string vds = vin.Substring(3, 6);
             string vis = vin.Substring(9, 8);
-
+            
             VinDecodeResult result = new VinDecodeResult
             {
                 Vin = vin,
@@ -55,6 +60,7 @@ namespace VinDecoder.Api.Services
                 Wmi = wmi,
                 Vis = vis,
                 Country = country,
+                Manufacture = manufacture
             };
 
             return result;

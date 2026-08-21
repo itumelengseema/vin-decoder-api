@@ -9,5 +9,6 @@
         public required string Vds { get; set; }
         public required string Vis { get; set; }
         public required string Country { get; set; }
+        public required string Manufacture { get; set; }
     }
 }

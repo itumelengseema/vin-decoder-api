@@ -11,6 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<VinDecoderService>();
 builder.Services.AddScoped<VinCheckDigitService>();
 builder.Services.AddScoped<VinCountryService>();
+builder.Services.AddScoped<VinManufacturerService>();
 
 var app = builder.Build();
 

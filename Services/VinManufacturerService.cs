@@ -37,7 +37,13 @@
 
 		public string GetManufacturer(string vin)
 		{
+			string wmi = vin.Substring(0, 3);
+			if (_manufacturers.TryGetValue(wmi, out string? manufacturer))
+			{
+				return manufacturer;
+			}
 
+			return "unknown";
 		}
 	}
 }
