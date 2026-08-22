@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FglboJNqx+c=",
+  "dgSpecHash": "yzIn7mBeG70=",
   "success": true,
   "projectFilePath": "C:\\Users\\itume\\Documents\\Workspace\\VinDecoder\\VinDecoder.Tests\\VinDecoder.Tests.csproj",
   "expectedPackageFiles": [
@@ -15,6 +15,7 @@
     "C:\\Users\\itume\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.20\\microsoft.entityframeworkcore.8.0.20.nupkg.sha512",
     "C:\\Users\\itume\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.20\\microsoft.entityframeworkcore.abstractions.8.0.20.nupkg.sha512",
     "C:\\Users\\itume\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\8.0.20\\microsoft.entityframeworkcore.analyzers.8.0.20.nupkg.sha512",
+    "C:\\Users\\itume\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\8.0.20\\microsoft.entityframeworkcore.inmemory.8.0.20.nupkg.sha512",
     "C:\\Users\\itume\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\8.0.20\\microsoft.entityframeworkcore.relational.8.0.20.nupkg.sha512",
     "C:\\Users\\itume\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\8.0.20\\microsoft.entityframeworkcore.sqlserver.8.0.20.nupkg.sha512",
     "C:\\Users\\itume\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
