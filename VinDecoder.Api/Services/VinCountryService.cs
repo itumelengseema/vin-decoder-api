@@ -1,60 +1,36 @@
-﻿namespace VinDecoder.Api.Services
+﻿using Microsoft.EntityFrameworkCore;
+using VinDecoder.Api.Data;
+
+namespace VinDecoder.Api.Services
 {
     public class VinCountryService
     {
-        public string GetCountry(string vin)
+        private readonly ApplicationDbContext _context;
+
+        public VinCountryService(ApplicationDbContext context)
         {
-            char firstCharacter = vin[0];
-            string countryCode = vin.Substring(0, 2);
+            _context = context;
+        }
 
-            // South African WMI range
-            if (countryCode == "AA" ||
-                countryCode == "AB" ||
-                countryCode == "AC" ||
-                countryCode == "AD" ||
-                countryCode == "AE" ||
-                countryCode == "AF" ||
-                countryCode == "AG" ||
-                countryCode == "AH")
+        public async Task<string> GetCountryAsync(string vin)
+        {
+            string twoCharacterPrefix = vin.Substring(0, 2);
+            var region = await _context.VinRegions.FirstOrDefaultAsync(r => r.Prefix == twoCharacterPrefix);
+
+            if (region != null)
             {
-                return "South Africa";
+                return region.Country;
             }
-            
-            // India WMI range
-            if (countryCode == "MA" ||
-                countryCode == "MB" ||
-                countryCode == "MC" ||
-                countryCode == "MD" ||
-                countryCode == "ME")
+
+            string oneCharacterPrefix = vin.Substring(0, 1);
+
+            region = await _context.VinRegions.FirstOrDefaultAsync(r => r.Prefix == oneCharacterPrefix);
+
+            if (region != null)
             {
-                return "India";
+                return region.Country;
             }
-            
-            switch (firstCharacter)
-            {
-                case '1':
-                case '4':
-                case '5':
-                    return "United States";
-
-                case '2':
-                    return "Canada";
-
-                case '3':
-                    return "Mexico";
-
-                case 'J':
-                    return "Japan";
-
-                case 'K':
-                    return "South Korea";
-
-                case 'W':
-                    return "Germany";
-
-                default:
-                    return "Unknown";
-            }
+            return "Unknow";
         }
     }
 }
