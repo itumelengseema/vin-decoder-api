@@ -18,7 +18,7 @@ namespace VinDecoder.Api.Services
             _vinModelYearService = vinModelYearService;
         }
 
-        public VinDecodeResult Decode(string? vin)
+        public async Task<VinDecodeResult> Decode(string? vin)
         {
             if (string.IsNullOrWhiteSpace(vin))
             {
@@ -50,7 +50,7 @@ namespace VinDecoder.Api.Services
 
             string country = _vinCountryService.GetCountry(vin);
 
-            string manufacture = _manufacturerService.GetManufacturer(vin);
+            string manufacture = await _manufacturerService.GetManufacturerAsync(vin);
 
             int manufactureYear = _vinModelYearService.GetYearModel(vin);
 

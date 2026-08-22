@@ -23,14 +23,13 @@ namespace VinDecoder.Api.Controllers
         [HttpGet("{vin}")]
         [ProducesResponseType(typeof(VinDecodeResult), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]  
-        public ActionResult<VinDecodeResult> Decode(string vin)
+        public async Task<ActionResult<VinDecodeResult>> Decode(string vin)
         {
             try
             {
-                VinDecodeResult vinResult = _vinDecoderService.Decode(vin);
-
-
-                return vinResult;
+                VinDecodeResult vinResult = await _vinDecoderService.Decode(vin);
+                
+                return Ok(vinResult);
             }
             catch (ArgumentException ex)
             {

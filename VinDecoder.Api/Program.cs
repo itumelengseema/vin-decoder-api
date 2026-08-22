@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using VinDecoder.Api.Data;
 using VinDecoder.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,10 +15,11 @@ builder.Services.AddScoped<VinCheckDigitService>();
 builder.Services.AddScoped<VinCountryService>();
 builder.Services.AddScoped<VinManufacturerService>();
 builder.Services.AddScoped<VinModelYearService>();
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefaultConnection")
+));
 
 var app = builder.Build();
-
-
 
 
 // Configure the HTTP request pipeline.

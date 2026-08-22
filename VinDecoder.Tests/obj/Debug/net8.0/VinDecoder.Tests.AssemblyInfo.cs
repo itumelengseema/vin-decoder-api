@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VinDecoder.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+292fda6626b76abec0ba68eade89257da1a69530")]
 [assembly: System.Reflection.AssemblyProductAttribute("VinDecoder.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VinDecoder.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
